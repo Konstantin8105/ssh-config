@@ -2,13 +2,18 @@ package ssh_config
 
 var (
 	mapInit  map[SSHKey]func() string
-	mapValid map[SSHKey]func() bool
+	mapValid map[SSHKey]func(string) bool
+	mapParse map[SSHKey]func(string) ([]string, error)
 )
 
-func ssh_init(s SSHKey, f func() string) {
+func sshInit(s SSHKey, f func() string) {
 	mapInit[s] = f
 }
 
-func ssh_valid(s SSHKey, f func() bool) {
+func sshValid(s SSHKey, f func(string) bool) {
 	mapValid[s] = f
+}
+
+func sshParse(s SSHKey, f func(string) ([]string, error)) {
+	mapParse[s] = f
 }

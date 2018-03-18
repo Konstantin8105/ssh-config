@@ -19,10 +19,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(AddKeysToAgent, funcInit)
-	ssh_valid(AddKeysToAgent, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(AddKeysToAgent, funcInit)
+	sshValid(AddKeysToAgent, funcValid)
+	sshParse(AddKeysToAgent, funcParse)
 }

@@ -41,10 +41,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(Ciphers, funcInit)
-	ssh_valid(Ciphers, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(Ciphers, funcInit)
+	sshValid(Ciphers, funcValid)
+	sshParse(Ciphers, funcParse)
 }

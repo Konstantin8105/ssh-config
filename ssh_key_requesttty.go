@@ -14,10 +14,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(RequestTTY, funcInit)
-	ssh_valid(RequestTTY, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(RequestTTY, funcInit)
+	sshValid(RequestTTY, funcValid)
+	sshParse(RequestTTY, funcParse)
 }

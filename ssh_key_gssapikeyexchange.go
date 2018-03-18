@@ -11,10 +11,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(GSSAPIKeyExchange, funcInit)
-	ssh_valid(GSSAPIKeyExchange, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(GSSAPIKeyExchange, funcInit)
+	sshValid(GSSAPIKeyExchange, funcValid)
+	sshParse(GSSAPIKeyExchange, funcParse)
 }

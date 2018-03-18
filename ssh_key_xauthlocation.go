@@ -10,10 +10,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(XAuthLocation, funcInit)
-	ssh_valid(XAuthLocation, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(XAuthLocation, funcInit)
+	sshValid(XAuthLocation, funcValid)
+	sshParse(XAuthLocation, funcParse)
 }

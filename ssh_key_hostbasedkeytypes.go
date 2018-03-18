@@ -24,10 +24,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(HostbasedKeyTypes, funcInit)
-	ssh_valid(HostbasedKeyTypes, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(HostbasedKeyTypes, funcInit)
+	sshValid(HostbasedKeyTypes, funcValid)
+	sshParse(HostbasedKeyTypes, funcParse)
 }

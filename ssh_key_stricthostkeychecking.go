@@ -23,10 +23,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(StrictHostKeyChecking, funcInit)
-	ssh_valid(StrictHostKeyChecking, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(StrictHostKeyChecking, funcInit)
+	sshValid(StrictHostKeyChecking, funcValid)
+	sshParse(StrictHostKeyChecking, funcParse)
 }

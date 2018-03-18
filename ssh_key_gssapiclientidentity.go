@@ -11,10 +11,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(GSSAPIClientIdentity, funcInit)
-	ssh_valid(GSSAPIClientIdentity, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(GSSAPIClientIdentity, funcInit)
+	sshValid(GSSAPIClientIdentity, funcValid)
+	sshParse(GSSAPIClientIdentity, funcParse)
 }

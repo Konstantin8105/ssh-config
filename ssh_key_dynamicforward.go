@@ -26,10 +26,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(DynamicForward, funcInit)
-	ssh_valid(DynamicForward, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(DynamicForward, funcInit)
+	sshValid(DynamicForward, funcValid)
+	sshParse(DynamicForward, funcParse)
 }

@@ -11,10 +11,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(PermitLocalCommand, funcInit)
-	ssh_valid(PermitLocalCommand, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(PermitLocalCommand, funcInit)
+	sshValid(PermitLocalCommand, funcValid)
+	sshParse(PermitLocalCommand, funcParse)
 }

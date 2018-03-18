@@ -24,10 +24,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(CertificateFile, funcInit)
-	ssh_valid(CertificateFile, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(CertificateFile, funcInit)
+	sshValid(CertificateFile, funcValid)
+	sshParse(CertificateFile, funcParse)
 }

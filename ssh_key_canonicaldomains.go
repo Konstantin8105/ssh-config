@@ -11,10 +11,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(CanonicalDomains, funcInit)
-	ssh_valid(CanonicalDomains, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(CanonicalDomains, funcInit)
+	sshValid(CanonicalDomains, funcValid)
+	sshParse(CanonicalDomains, funcParse)
 }

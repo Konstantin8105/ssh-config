@@ -12,10 +12,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(PKCS11Provider, funcInit)
-	ssh_valid(PKCS11Provider, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(PKCS11Provider, funcInit)
+	sshValid(PKCS11Provider, funcValid)
+	sshParse(PKCS11Provider, funcParse)
 }

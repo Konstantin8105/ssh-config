@@ -36,10 +36,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(IdentityFile, funcInit)
-	ssh_valid(IdentityFile, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(IdentityFile, funcInit)
+	sshValid(IdentityFile, funcValid)
+	sshParse(IdentityFile, funcParse)
 }

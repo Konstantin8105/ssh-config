@@ -16,10 +16,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(StreamLocalBindUnlink, funcInit)
-	ssh_valid(StreamLocalBindUnlink, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(StreamLocalBindUnlink, funcInit)
+	sshValid(StreamLocalBindUnlink, funcValid)
+	sshParse(StreamLocalBindUnlink, funcParse)
 }

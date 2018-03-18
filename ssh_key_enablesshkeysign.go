@@ -14,10 +14,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(EnableSSHKeysign, funcInit)
-	ssh_valid(EnableSSHKeysign, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(EnableSSHKeysign, funcInit)
+	sshValid(EnableSSHKeysign, funcValid)
+	sshParse(EnableSSHKeysign, funcParse)
 }

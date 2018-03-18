@@ -10,10 +10,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(NumberOfPasswordPrompts, funcInit)
-	ssh_valid(NumberOfPasswordPrompts, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(NumberOfPasswordPrompts, funcInit)
+	sshValid(NumberOfPasswordPrompts, funcValid)
+	sshParse(NumberOfPasswordPrompts, funcParse)
 }

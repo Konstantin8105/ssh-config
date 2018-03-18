@@ -21,10 +21,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(SendEnv, funcInit)
-	ssh_valid(SendEnv, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(SendEnv, funcInit)
+	sshValid(SendEnv, funcValid)
+	sshParse(SendEnv, funcParse)
 }

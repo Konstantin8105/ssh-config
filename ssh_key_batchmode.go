@@ -14,10 +14,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(BatchMode, funcInit)
-	ssh_valid(BatchMode, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(BatchMode, funcInit)
+	sshValid(BatchMode, funcValid)
+	sshParse(BatchMode, funcParse)
 }

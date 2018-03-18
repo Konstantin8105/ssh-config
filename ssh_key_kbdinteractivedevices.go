@@ -14,10 +14,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(KbdInteractiveDevices, funcInit)
-	ssh_valid(KbdInteractiveDevices, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(KbdInteractiveDevices, funcInit)
+	sshValid(KbdInteractiveDevices, funcValid)
+	sshParse(KbdInteractiveDevices, funcParse)
 }

@@ -11,10 +11,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(CanonicalizeMaxDots, funcInit)
-	ssh_valid(CanonicalizeMaxDots, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(CanonicalizeMaxDots, funcInit)
+	sshValid(CanonicalizeMaxDots, funcValid)
+	sshParse(CanonicalizeMaxDots, funcParse)
 }

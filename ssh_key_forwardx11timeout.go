@@ -13,10 +13,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(ForwardX11Timeout, funcInit)
-	ssh_valid(ForwardX11Timeout, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(ForwardX11Timeout, funcInit)
+	sshValid(ForwardX11Timeout, funcValid)
+	sshParse(ForwardX11Timeout, funcParse)
 }

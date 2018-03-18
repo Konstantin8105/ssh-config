@@ -23,10 +23,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(KexAlgorithms, funcInit)
-	ssh_valid(KexAlgorithms, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(KexAlgorithms, funcInit)
+	sshValid(KexAlgorithms, funcValid)
+	sshParse(KexAlgorithms, funcParse)
 }

@@ -10,10 +10,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(Compression, funcInit)
-	ssh_valid(Compression, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(Compression, funcInit)
+	sshValid(Compression, funcValid)
+	sshParse(Compression, funcParse)
 }

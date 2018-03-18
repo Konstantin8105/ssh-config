@@ -12,10 +12,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(RhostsRSAAuthentication, funcInit)
-	ssh_valid(RhostsRSAAuthentication, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(RhostsRSAAuthentication, funcInit)
+	sshValid(RhostsRSAAuthentication, funcValid)
+	sshParse(RhostsRSAAuthentication, funcParse)
 }

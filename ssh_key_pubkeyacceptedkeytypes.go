@@ -24,10 +24,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(PubkeyAcceptedKeyTypes, funcInit)
-	ssh_valid(PubkeyAcceptedKeyTypes, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(PubkeyAcceptedKeyTypes, funcInit)
+	sshValid(PubkeyAcceptedKeyTypes, funcValid)
+	sshParse(PubkeyAcceptedKeyTypes, funcParse)
 }

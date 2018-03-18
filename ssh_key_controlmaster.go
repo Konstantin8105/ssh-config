@@ -33,10 +33,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(ControlMaster, funcInit)
-	ssh_valid(ControlMaster, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(ControlMaster, funcInit)
+	sshValid(ControlMaster, funcValid)
+	sshParse(ControlMaster, funcParse)
 }

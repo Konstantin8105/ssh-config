@@ -10,10 +10,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(GSSAPIDelegateCredentials, funcInit)
-	ssh_valid(GSSAPIDelegateCredentials, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(GSSAPIDelegateCredentials, funcInit)
+	sshValid(GSSAPIDelegateCredentials, funcValid)
+	sshParse(GSSAPIDelegateCredentials, funcParse)
 }

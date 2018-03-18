@@ -15,10 +15,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(Protocol, funcInit)
-	ssh_valid(Protocol, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(Protocol, funcInit)
+	sshValid(Protocol, funcValid)
+	sshParse(Protocol, funcParse)
 }

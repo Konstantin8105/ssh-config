@@ -11,10 +11,18 @@ func init() {
 		// TODO
 		return
 	}
-	funcValid := func() (res bool) {
+
+	funcValid := func(value string) (res bool) {
 		// TODO
 		return
 	}
-	ssh_init(KbdInteractiveAuthentication, funcInit)
-	ssh_valid(KbdInteractiveAuthentication, funcValid)
+
+	funcParse := func(input string) (values []string, err error) {
+		// TODO
+		return
+	}
+
+	sshInit(KbdInteractiveAuthentication, funcInit)
+	sshValid(KbdInteractiveAuthentication, funcValid)
+	sshParse(KbdInteractiveAuthentication, funcParse)
 }
