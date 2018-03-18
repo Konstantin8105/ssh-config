@@ -35,7 +35,7 @@ func main() {
 	lines := strings.Split(sout.String(), "\n")
 
 	// Generate package comment
-	filename := "../ssh_config.go"
+	filename := "doc.go"
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println("Cannot create a file `%v`. err = %v",
