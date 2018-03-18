@@ -1,5 +1,10 @@
 package ssh_config
 
+// GSSAPIAuthentication
+//         Specifies whether user authentication based on GSSAPI is
+//         allowed.  The default is “no”.
+//
+
 func init() {
 	funcInit := func() (res string) {
 		// TODO

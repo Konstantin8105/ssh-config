@@ -1,5 +1,11 @@
 package ssh_config
 
+// CanonicalDomains
+//         When CanonicalizeHostname is enabled, this option specifies the
+//         list of domain suffixes in which to search for the specified
+//         destination host.
+//
+
 func init() {
 	funcInit := func() (res string) {
 		// TODO

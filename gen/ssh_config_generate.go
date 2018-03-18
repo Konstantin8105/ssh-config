@@ -41,7 +41,7 @@ func main() {
 	}
 	/* DO NOT UNCOMMENT
 	for _, opt := range options {
-		err = generatePrepareSourceForKeys(opt.Name)
+		err = generatePrepareSourceForKeys(opt)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -299,8 +299,8 @@ func Convert(name string) (key SSHKey, err error) {
 	return
 }
 
-func generatePrepareSourceForKeys(sshkey string) (err error) {
-	filename := "ssh_key_" + strings.ToLower(sshkey) + ".go"
+func generatePrepareSourceForKeys(sshkey Option) (err error) {
+	filename := "ssh_key_" + strings.ToLower(sshkey.Name) + ".go"
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Printf("Cannot create a file `%v`. err = %v",
@@ -321,7 +321,13 @@ func generatePrepareSourceForKeys(sshkey string) (err error) {
 	}()
 
 	f.WriteString("package ssh_config\n")
+
+	for _, c := range sshkey.Comments {
+		f.WriteString("// " + c + "\n")
+	}
+
 	f.WriteString(fmt.Sprintf(`
+
 func init(){
 	funcInit := func()(res string){
 		// TODO
@@ -334,7 +340,7 @@ func init(){
 	ssh_init(%s, funcInit)
 	ssh_valid(%s, funcValid)
 }
-`, sshkey, sshkey))
+`, sshkey.Name, sshkey.Name))
 
 	return
 }
