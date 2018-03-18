@@ -34,7 +34,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	err = generateMap(options)
+	err = generateConvert(options)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -232,8 +232,8 @@ func generateConstants(options []Option) (err error) {
 	return
 }
 
-func generateMap(options []Option) (err error) {
-	filename := "map.go"
+func generateConvert(options []Option) (err error) {
+	filename := "convert.go"
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Printf("Cannot create a file `%v`. err = %v",
