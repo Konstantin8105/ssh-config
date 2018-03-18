@@ -15,18 +15,27 @@ const (
 	bodyOption
 )
 
-type option struct {
-	name     string
-	comments []string
+type Option struct {
+	Name     string
+	Comments []string
 }
 
 func main() {
+	env := os.Getenv("MANWIDTH")
+	err := os.Setenv("MANWIDTH", "78")
+	if err != nil {
+		fmt.Println("Cannot set variable environment. err = ", err)
+		return
+	}
+	defer func() {
+		_ = os.Setenv("MANWIDTH", env)
+	}()
 	cmd := exec.Command("man", "ssh_config")
 	var sout bytes.Buffer
 	var serr bytes.Buffer
 	cmd.Stdout = &sout
 	cmd.Stderr = &serr
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
 		fmt.Printf("Cannot run `man ssh_config`. err = %v\n stderr = %v",
 			err, serr)
@@ -90,8 +99,8 @@ func main() {
 	foundOptions := false
 
 	var st status = newOption
-	options := make([]option, 0, 1)
-	var presentOption option
+	options := make([]Option, 0, 1)
+	var presentOption Option
 
 	for _, line := range lines {
 		if len(line) > 0 && line[0] != ' ' {
@@ -137,15 +146,15 @@ func main() {
 
 		if st == newOption {
 			options = append(options, presentOption)
-			presentOption = option{}
+			presentOption = Option{}
 			// search name of option
 			s := strings.Split(strings.TrimSpace(line), " ")
 			if len(s) == 0 {
 				panic(fmt.Errorf("Wrong string line with name : %s", line))
 			}
-			presentOption.name = s[0]
+			presentOption.Name = s[0]
 		}
-		presentOption.comments = append(presentOption.comments, line)
+		presentOption.Comments = append(presentOption.Comments, line)
 	}
 	options = append(options, presentOption)
 	options = options[1:]
