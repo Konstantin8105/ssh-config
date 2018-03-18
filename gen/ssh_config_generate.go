@@ -21,6 +21,8 @@ type Option struct {
 	Comments []string
 }
 
+var doNotEdit string = "\n// Code generated automatically. DO NOT EDIT.\n\n"
+
 func main() {
 	options, err := getManOptions()
 	if err != nil {
@@ -109,6 +111,8 @@ func getManOptions() (options []Option, err error) {
 			filename, err)
 		return
 	}
+
+	f.WriteString(doNotEdit)
 
 	// Parse `man documentation` to golang struct
 	paragrahName := "DESCRIPTION"
@@ -215,10 +219,10 @@ func generateConstants(options []Option) (err error) {
 		}
 	}
 
-	f.WriteString(`package ssh_config
+	f.WriteString("package ssh_config\n")
+	f.WriteString(doNotEdit)
+	f.WriteString("type SSHKey string\n")
 
-	type SSHKey string
-`)
 	_, err = f.WriteString(bufStruct.String())
 	if err != nil {
 		fmt.Printf("Cannot write to file `%v`. err = %v",
@@ -263,10 +267,13 @@ func generateMap(options []Option) (err error) {
 		}
 	}
 
-	f.WriteString(`package ssh_config
+	f.WriteString("package ssh_config\n")
+	f.WriteString(doNotEdit)
+	f.WriteString(`
 
 import "fmt"
 
+// Convert return ssh-key if input name is valid, or error
 func Convert(name string) (key SSHKey, err error) {
 	switch name {
 `)
@@ -278,7 +285,7 @@ func Convert(name string) (key SSHKey, err error) {
 	}
 	f.WriteString(`
 	}
-	return key, fmt.Errorf("Not valid name of ssh key : %s",name)
+	return key, fmt.Errorf("Not valid name of ssh key : %s", name)
 }`)
 	return
 }

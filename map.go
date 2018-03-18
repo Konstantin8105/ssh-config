@@ -1,7 +1,10 @@
 package ssh_config
 
+// Code generated automatically. DO NOT EDIT.
+
 import "fmt"
 
+// Convert return ssh-key if input name is valid, or error
 func Convert(name string) (key SSHKey, err error) {
 	switch name {
 
