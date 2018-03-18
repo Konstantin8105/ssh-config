@@ -39,6 +39,15 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	/* DO NOT UNCOMMENT
+	for _, opt := range options {
+		err = generatePrepareSourceForKeys(opt.Name)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
+	*/
 }
 
 func getManOptions() (options []Option, err error) {
@@ -287,5 +296,45 @@ func Convert(name string) (key SSHKey, err error) {
 	}
 	return key, fmt.Errorf("Not valid name of ssh key : %s", name)
 }`)
+	return
+}
+
+func generatePrepareSourceForKeys(sshkey string) (err error) {
+	filename := "ssh_key_" + strings.ToLower(sshkey) + ".go"
+	f, err := os.Create(filename)
+	if err != nil {
+		fmt.Printf("Cannot create a file `%v`. err = %v",
+			filename, err)
+		return
+	}
+	defer func() {
+		err = f.Sync()
+		if err != nil {
+			fmt.Printf("Cannot sync file `%v`. err = %v",
+				filename, err)
+		}
+		err = f.Close()
+		if err != nil {
+			fmt.Printf("Cannot close file `%v`. err = %v",
+				filename, err)
+		}
+	}()
+
+	f.WriteString("package ssh_config\n")
+	f.WriteString(fmt.Sprintf(`
+func init(){
+	funcInit := func()(res string){
+		// TODO
+		return
+	}
+	funcValid := func() (res bool){
+		// TODO
+		return
+	}
+	ssh_init(%s, funcInit)
+	ssh_valid(%s, funcValid)
+}
+`, sshkey, sshkey))
+
 	return
 }
