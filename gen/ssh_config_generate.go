@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"os"
 	"os/exec"
 	"strings"
@@ -21,10 +22,28 @@ type Option struct {
 }
 
 func main() {
-	env := os.Getenv("MANWIDTH")
-	err := os.Setenv("MANWIDTH", "78")
+	options, err := getManOptions()
 	if err != nil {
-		fmt.Println("Cannot set variable environment. err = ", err)
+		fmt.Println(err)
+		return
+	}
+	err = generateConstants(options)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	err = generateMap(options)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+func getManOptions() (options []Option, err error) {
+	env := os.Getenv("MANWIDTH")
+	err = os.Setenv("MANWIDTH", "78")
+	if err != nil {
+		fmt.Printf("Cannot set variable environment. err = ", err)
 		return
 	}
 	defer func() {
@@ -47,19 +66,19 @@ func main() {
 	filename := "doc.go"
 	f, err := os.Create(filename)
 	if err != nil {
-		fmt.Println("Cannot create a file `%v`. err = %v",
+		fmt.Printf("Cannot create a file `%v`. err = %v",
 			filename, err)
 		return
 	}
 	defer func() {
 		err = f.Sync()
 		if err != nil {
-			fmt.Println("Cannot sync file `%v`. err = %v",
+			fmt.Printf("Cannot sync file `%v`. err = %v",
 				filename, err)
 		}
 		err = f.Close()
 		if err != nil {
-			fmt.Println("Cannot close file `%v`. err = %v",
+			fmt.Printf("Cannot close file `%v`. err = %v",
 				filename, err)
 		}
 	}()
@@ -67,26 +86,26 @@ func main() {
 	for _, line := range lines {
 		_, err = f.Write([]byte("// "))
 		if err != nil {
-			fmt.Println("Cannot write to file `%v`. err = %v",
+			fmt.Printf("Cannot write to file `%v`. err = %v",
 				filename, err)
 			return
 		}
 		_, err = f.WriteString(line)
 		if err != nil {
-			fmt.Println("Cannot write to file `%v`. err = %v",
+			fmt.Printf("Cannot write to file `%v`. err = %v",
 				filename, err)
 			return
 		}
 		_, err = f.Write([]byte("\n"))
 		if err != nil {
-			fmt.Println("Cannot write to file `%v`. err = %v",
+			fmt.Printf("Cannot write to file `%v`. err = %v",
 				filename, err)
 			return
 		}
 	}
 	_, err = f.WriteString("package ssh_config\n")
 	if err != nil {
-		fmt.Println("Cannot write to file `%v`. err = %v",
+		fmt.Printf("Cannot write to file `%v`. err = %v",
 			filename, err)
 		return
 	}
@@ -99,7 +118,6 @@ func main() {
 	foundOptions := false
 
 	var st status = newOption
-	options := make([]Option, 0, 1)
 	var presentOption Option
 
 	for _, line := range lines {
@@ -158,8 +176,109 @@ func main() {
 	}
 	options = append(options, presentOption)
 	options = options[1:]
+	return
+}
 
-	for _, opt := range options {
-		fmt.Printf("%#v\n", opt.Name)
+func generateConstants(options []Option) (err error) {
+	// generate golang constants
+	filename := "constants.go"
+	f, err := os.Create(filename)
+	if err != nil {
+		fmt.Printf("Cannot create a file `%v`. err = %v",
+			filename, err)
+		return
 	}
+	defer func() {
+		err = f.Sync()
+		if err != nil {
+			fmt.Printf("Cannot sync file `%v`. err = %v",
+				filename, err)
+		}
+		err = f.Close()
+		if err != nil {
+			fmt.Printf("Cannot close file `%v`. err = %v",
+				filename, err)
+		}
+	}()
+	src := `
+{{ range .Comments }}// {{ . }}
+{{ end }}const {{ .Name }} SSHKey = "{{ .Name }}"
+	`
+	t := template.Must(template.New("src").Parse(src))
+
+	var bufStruct bytes.Buffer
+	for _, opt := range options {
+		err = t.Execute(&bufStruct, opt)
+		if err != nil {
+			fmt.Println("executing template:", err)
+			return
+		}
+	}
+
+	f.WriteString(`package ssh_config
+
+	type SSHKey string
+`)
+	_, err = f.WriteString(bufStruct.String())
+	if err != nil {
+		fmt.Printf("Cannot write to file `%v`. err = %v",
+			filename, err)
+		return
+	}
+	return
+}
+
+func generateMap(options []Option) (err error) {
+	filename := "map.go"
+	f, err := os.Create(filename)
+	if err != nil {
+		fmt.Printf("Cannot create a file `%v`. err = %v",
+			filename, err)
+		return
+	}
+	defer func() {
+		err = f.Sync()
+		if err != nil {
+			fmt.Printf("Cannot sync file `%v`. err = %v",
+				filename, err)
+		}
+		err = f.Close()
+		if err != nil {
+			fmt.Printf("Cannot close file `%v`. err = %v",
+				filename, err)
+		}
+	}()
+	src := `
+	case "{{ .Name }}":
+		return {{ .Name }}, nil
+`
+	t := template.Must(template.New("src").Parse(src))
+
+	var bufStruct bytes.Buffer
+	for _, opt := range options {
+		err = t.Execute(&bufStruct, opt)
+		if err != nil {
+			fmt.Println("executing template:", err)
+			return
+		}
+	}
+
+	f.WriteString(`package ssh_config
+
+import "fmt"
+
+func Convert(name string) (key SSHKey, err error) {
+	switch name {
+`)
+	_, err = f.WriteString(bufStruct.String())
+	if err != nil {
+		fmt.Printf("Cannot write to file `%v`. err = %v",
+			filename, err)
+		return
+	}
+	f.WriteString(`
+	}
+	return key, fmt.Errorf("Not valid name of ssh key : %s",name)
+}`)
+	return
 }
