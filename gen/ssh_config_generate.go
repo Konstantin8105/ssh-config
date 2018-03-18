@@ -160,6 +160,6 @@ func main() {
 	options = options[1:]
 
 	for _, opt := range options {
-		fmt.Printf("%#v\n", opt.name)
+		fmt.Printf("%#v\n", opt.Name)
 	}
 }
