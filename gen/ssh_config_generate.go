@@ -46,6 +46,11 @@ func main() {
 			fmt.Println(err)
 			return
 		}
+		err = generatePrepareTestForKeys(opt)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 	}
 	*/
 }
@@ -299,6 +304,101 @@ func Convert(name string) (key SSHKey, err error) {
 	return
 }
 
+func generatePrepareTestForKeys(sshkey Option) (err error) {
+	filename := "ssh_key_" + strings.ToLower(sshkey.Name) + "_test.go"
+	f, err := os.Create(filename)
+	if err != nil {
+		fmt.Printf("Cannot create a file `%v`. err = %v",
+			filename, err)
+		return
+	}
+	defer func() {
+		err = f.Sync()
+		if err != nil {
+			fmt.Printf("Cannot sync file `%v`. err = %v",
+				filename, err)
+		}
+		err = f.Close()
+		if err != nil {
+			fmt.Printf("Cannot close file `%v`. err = %v",
+				filename, err)
+		}
+	}()
+
+	f.WriteString("package ssh_config\n")
+	f.WriteString(`
+import "testing"
+
+`)
+
+	for _, c := range sshkey.Comments {
+		f.WriteString("// " + c + "\n")
+	}
+
+	f.WriteString(fmt.Sprintf(`
+
+func Test%sInitFunc(t *testing.T) {
+	defer func(){
+		if err := recover(); err!=nil{
+			t.Errorf("panic in test is not acceptable")
+		}
+	}()
+	f,ok := mapInit[%s]
+	if !ok{
+		t.Errorf("Cannot found init-function")
+	}
+	if f == nil{
+		t.Errorf("Init-function is nil")
+	}
+	if f() == ""{
+		// TODO
+		t.Errorf("Not acceptable empty init value")
+	}
+}
+
+func Test%sValidFunc(t *testing.T) {
+	defer func(){
+		if err := recover(); err!=nil{
+			t.Errorf("panic in test is not acceptable")
+		}
+	}()
+	f,ok := mapValid[%s]
+	if !ok{
+		t.Errorf("Cannot found valid-function")
+	}
+	if f == nil{
+		t.Errorf("Valid-function is nil")
+	}
+	if ! f(""){
+		// TODO
+		t.Errorf("Not acceptable empty valid-value")
+	}
+}
+
+
+func Test%sParseFunc(t *testing.T) {
+	defer func(){
+		if err := recover(); err!=nil{
+			t.Errorf("panic in test is not acceptable")
+		}
+	}()
+	f,ok := mapParse[%s]
+	if !ok{
+		t.Errorf("Cannot found parse-function")
+	}
+	if f == nil{
+		t.Errorf("Parse-function is nil")
+	}
+	// TODO
+}
+
+`, sshkey.Name, sshkey.Name,
+		sshkey.Name, sshkey.Name,
+		sshkey.Name, sshkey.Name))
+
+	return
+}
+
 func generatePrepareSourceForKeys(sshkey Option) (err error) {
 	filename := "ssh_key_" + strings.ToLower(sshkey.Name) + ".go"
 	f, err := os.Create(filename)
@@ -331,16 +431,19 @@ func generatePrepareSourceForKeys(sshkey Option) (err error) {
 func init(){
 	funcInit := func()(res string){
 		// TODO
+		panic("Not implemented")
 		return
 	}
 
 	funcValid := func(value string) (res bool){
 		// TODO
+		panic("Not implemented")
 		return
 	}
 
 	funcParse := func(input string) (values []string, err error){
 		// TODO
+		panic("Not implemented")
 		return
 	}
 
