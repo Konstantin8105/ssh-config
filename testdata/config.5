@@ -1,0 +1,19 @@
+Host machine1
+        Hostname server.example.org
+        User fred
+        IdentityFile /home/fred/.ssh/machine1_e25519
+        Port 2222
+
+Host machine2
+        Hostname 192.168.15.21
+        User fred
+        IdentityFile /home/fred/.ssh/machine2_e25519
+        Port 2222
+        ProxyCommand ssh -W %h:%p machine1
+
+Host machine3
+        Hostname 10.42.0.144
+        User fred
+        IdentityFile /home/fred/.ssh/machine3_e25519
+        Port 2222
+        ProxyCommand ssh -W %h:%p machine2

@@ -1,0 +1,10 @@
+# Turn on pubkey auth per specific HOST
+Host c1
+    HostName 192.168.0.1
+    PubkeyAuthentication yes
+    IdentityFile ~/.ssh/id_rsa_specific
+
+# Turn off pubkey auth for all hosts
+Host *
+    PubkeyAuthentication no
+    IdentitiesOnly yes

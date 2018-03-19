@@ -1,0 +1,5 @@
+Host gateway.example.org
+        ProxyCommand none
+
+Host *.example.org my-private-host
+        ProxyCommand ssh myuser@gateway.example.org nc %h %p

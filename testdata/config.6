@@ -1,0 +1,17 @@
+Host *
+    User root
+    Port 22
+    PubkeyAuthentication no
+    ServerAliveInterval 30
+
+Host c*
+    User cytopia
+    Port 10022
+    PubkeyAuthentication yes
+    IdentityFile ~/.ssh/id_rsa__c_cytopia@cytopia-macbook
+
+Host c1
+    HostName 192.168.0.1
+
+Host c2
+    HostName 192.168.0.2
