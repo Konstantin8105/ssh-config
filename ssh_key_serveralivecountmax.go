@@ -21,9 +21,7 @@ package ssh_config
 
 func init() {
 	funcInit := func() (res string) {
-		// TODO
-		panic("Not implemented")
-		return
+		return "3"
 	}
 
 	funcValid := func(value string) (res bool) {
