@@ -52,7 +52,7 @@ func TestPortValidFunc(t *testing.T) {
 			t.Errorf("Error for valid-value : %s", port)
 		}
 	}
-	if f(" -1   ") {
+	if f("\t\t\t\x00 -1   ") {
 		t.Errorf("Error for NOT valid-value : -1")
 	}
 	if f("65536 ") {
