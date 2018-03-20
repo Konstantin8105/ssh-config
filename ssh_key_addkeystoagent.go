@@ -15,16 +15,13 @@ package ssh_config
 //
 
 func init() {
+
 	funcInit := func() (res string) {
-		// TODO
-		panic("Not implemented")
-		return
+		return "no"
 	}
 
 	funcValid := func(value string) (res bool) {
-		// TODO
-		panic("Not implemented")
-		return
+		return isValid(value, "yes", "confirm", "ask", "no")
 	}
 
 	funcParse := func(input string) (values []string, err error) {

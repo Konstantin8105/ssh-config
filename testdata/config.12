@@ -1,0 +1,64 @@
+Host jump1
+    Hostname ip.109
+    Port 2222
+    User avdy
+
+Host jump2
+    Hostname ip.138
+    Port 22
+    ProxyCommand ssh -W %h:%p jump1
+    User avdy
+
+Host remote-server
+    Hostname ip.8
+    Port 22
+    ProxyCommand ssh -W %h:%p jump2
+    User root
+
+
+Host RemoveServer
+  ProxyJump jump1user@Jump1 , 
+            jump2user@Jump2
+
+  User remoteUser
+
+
+Host martha
+#blinky
+        LocalForward    22005   192.168.0.5
+#waldo
+        LocalForward    22006   192.168.0.6
+#darma
+        LocalForward    22007   192.168.0.7
+#annabelle
+        LocalForward    22008   192.168.0.8
+#endor
+        LocalForward    22009   192.168.0.9
+
+
+Host blinky
+        Hostname        localhost
+        Port            22005
+        HostKeyAlias    blinky
+Host waldo
+        Hostname        localhost
+        Port            22006
+        HostKeyAlias    waldo
+Host darma
+        Hostname        localhost
+        Port            22007
+        HostKeyAlias    darma
+Host annabelle
+        Hostname        localhost
+        Port            22008
+        HostKeyAlias    annabelle
+        User            william
+Host endor
+        Hostname        localhost
+        Port            22009
+        HostKeyAlias    endor
+Host *
+        Protocol 2
+        User wstearns
+        Compression yes
+        IdentityFile /home/wstearns/.ssh/id_dsa

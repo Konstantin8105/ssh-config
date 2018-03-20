@@ -1,5 +1,7 @@
 package ssh_config
 
+import "strings"
+
 // Host    Restricts the following declarations (up to the next Host or
 //         Match keyword) to be only for those hosts that match one of the
 //         patterns given after the keyword.  If more than one pattern is
@@ -26,14 +28,19 @@ func init() {
 	}
 
 	funcValid := func(value string) (res bool) {
+		if value == "*" {
+			return true
+		}
 		// TODO
-		panic("Not implemented")
+		// panic("Not implemented")
 		return
 	}
 
 	funcParse := func(input string) (values []string, err error) {
-		// TODO
-		panic("Not implemented")
+		values = strings.Split(input, " ")
+		for i := range values {
+			values[i] = strings.TrimSpace(values[i])
+		}
 		return
 	}
 

@@ -1,5 +1,11 @@
 package ssh_config
 
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
 // ServerAliveInterval
 //         Sets a timeout interval in seconds after which if no data has
 //         been received from the server, ssh(1) will send a message
@@ -18,14 +24,28 @@ func init() {
 	}
 
 	funcValid := func(value string) (res bool) {
-		// TODO
-		panic("Not implemented")
-		return
+		value = strings.TrimSpace(value)
+		v, err := strconv.Atoi(value)
+		if err != nil {
+			return false
+		}
+		if v < 0 {
+			return false
+		}
+		return true
 	}
 
 	funcParse := func(input string) (values []string, err error) {
-		// TODO
-		panic("Not implemented")
+		input = strings.TrimSpace(input)
+		if strings.Count(input, " ") > 0 {
+			err = fmt.Errorf("Not acceptable more then 1 value ` `: `%v`",
+				input)
+		}
+		if strings.Count(input, ",") > 0 {
+			err = fmt.Errorf("Not acceptable more then 1 value `,`: `%v`",
+				input)
+		}
+		values = append(values, input)
 		return
 	}
 
