@@ -1,6 +1,9 @@
 package ssh_config
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 var (
 	mapInit  map[SSHKey]func() string
@@ -20,6 +23,16 @@ func sshInit(s SSHKey, f func() string) {
 
 func sshValid(s SSHKey, f func(string) bool) {
 	mapValid[s] = f
+	// checking of init-valid
+	// init-value must be valid
+	initFunc, ok := mapInit[s]
+	if !ok {
+		panic(fmt.Errorf("Before initialization of valid-function need to "+
+			"initialize init-function for ssh-key: %v", s))
+	}
+	if !f(initFunc()) {
+		panic(fmt.Errorf("Not valid init value for ssh-key : %v", s))
+	}
 }
 
 func sshParse(s SSHKey, f func(string) ([]string, error)) {

@@ -31,6 +31,7 @@ func init() {
 		if value == "*" {
 			return true
 		}
+
 		// TODO
 		// panic("Not implemented")
 		return
