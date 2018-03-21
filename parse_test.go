@@ -7,6 +7,12 @@ import (
 )
 
 func TestParse(t *testing.T) {
+	defer func() {
+		if err := recover(); err != nil {
+			t.Errorf("Cannot continue parsing test : panic is not acceptable.")
+		}
+	}()
+
 	files, err := filepath.Glob("testdata/*")
 	if err != nil {
 		t.Fatal(err)
@@ -14,6 +20,13 @@ func TestParse(t *testing.T) {
 
 	for _, file := range files {
 		t.Run(file, func(t *testing.T) {
+			defer func() {
+				if err := recover(); err != nil {
+					t.Errorf("Cannot parse '%v' : panic is not acceptable.",
+						file)
+				}
+			}()
+
 			contents, err := ioutil.ReadFile(file)
 			if err != nil {
 				t.Errorf("Cannot read file `%v`. err = %v", file, err)

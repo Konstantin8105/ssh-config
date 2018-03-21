@@ -21,9 +21,7 @@ func init() {
 	}
 
 	funcParse := func(input string) (values []string, err error) {
-		// TODO
-		panic("Not implemented")
-		return
+		return parseSingleString(input)
 	}
 
 	sshInit(BindAddress, funcInit)

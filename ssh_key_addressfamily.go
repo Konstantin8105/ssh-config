@@ -8,21 +8,15 @@ package ssh_config
 
 func init() {
 	funcInit := func() (res string) {
-		// TODO
-		panic("Not implemented")
-		return
+		return "any"
 	}
 
 	funcValid := func(value string) (res bool) {
-		// TODO
-		panic("Not implemented")
-		return
+		return isValid(value, "any", "inet", "inet6")
 	}
 
 	funcParse := func(input string) (values []string, err error) {
-		// TODO
-		panic("Not implemented")
-		return
+		return parseSingleString(input)
 	}
 
 	sshInit(AddressFamily, funcInit)

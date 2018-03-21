@@ -22,7 +22,6 @@ func sshInit(s SSHKey, f func() string) {
 }
 
 func sshValid(s SSHKey, f func(string) bool) {
-	mapValid[s] = f
 	// checking of init-valid
 	// init-value must be valid
 	initFunc, ok := mapInit[s]
@@ -33,6 +32,9 @@ func sshValid(s SSHKey, f func(string) bool) {
 	if !f(initFunc()) {
 		panic(fmt.Errorf("Not valid init value for ssh-key : %v", s))
 	}
+
+	// add valid-function to map
+	mapValid[s] = f
 }
 
 func sshParse(s SSHKey, f func(string) ([]string, error)) {
@@ -50,4 +52,18 @@ func isValid(input string, allowableValues ...string) bool {
 		}
 	}
 	return false
+}
+
+func parseSingleString(input string) (values []string, err error) {
+	input = strings.TrimSpace(input)
+	if strings.Count(input, " ") > 0 {
+		err = fmt.Errorf("Not acceptable more then 1 value ` `: `%v`",
+			input)
+	}
+	if strings.Count(input, ",") > 0 {
+		err = fmt.Errorf("Not acceptable more then 1 value `,`: `%v`",
+			input)
+	}
+	values = append(values, input)
+	return
 }
